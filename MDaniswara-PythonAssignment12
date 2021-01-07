@@ -1,0 +1,178 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Tugas12Python_MDaniswara.ipynb",
+      "provenance": [],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/AdrielFauzan/Tugas-Pythpon/blob/main/Tugas12_Muhammad%20Adriel%20Fauzan.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "x68Kerskp5wm"
+      },
+      "source": [
+        "import numpy as muhammadadrielfauzan"
+      ],
+      "execution_count": 1,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "pb_B5u1PqVc5"
+      },
+      "source": [
+        "#c1_value = fc\r\n",
+        "def c1(c1_value) :\r\n",
+        "  if c1_value in range(400,1500) :\r\n",
+        "    return 69.55\r\n",
+        "  elif c1_value in range(1500,2000) :\r\n",
+        "    return 46.3\r\n",
+        "  else : return 0"
+      ],
+      "execution_count": 3,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "lblCkfqFqZe1"
+      },
+      "source": [
+        "#c2_value = fc\r\n",
+        "def c2(c2_value):\r\n",
+        "  if c2_value in range(400,1500):\r\n",
+        "    return 26.16\r\n",
+        "  elif c2_value in range(1500,2000):\r\n",
+        "    return 33.9\r\n",
+        "  else: return 0"
+      ],
+      "execution_count": 4,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "dwwXECdUqcNl"
+      },
+      "source": [
+        "def ahr(fc,hr):\r\n",
+        "  x=(1.1*muhammadadrielfauzan.log10(fc)-0.7)*hr-(1.56*muhammadadrielfauzan.log10(fc)-0.8)\r\n",
+        "  return x"
+      ],
+      "execution_count": 5,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "gqT-3hljqimx"
+      },
+      "source": [
+        "#suburban\r\n",
+        "SbN = lambda x: -2*muhammadadrielfauzan.log10(x/28)*muhammadadrielfauzan.log10(x/28)-5.4"
+      ],
+      "execution_count": 6,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "e0LfhEzwqpRq"
+      },
+      "source": [
+        "#open\r\n",
+        "Op = lambda x: -4.78*muhammadadrielfauzan.log10(x)*muhammadadrielfauzan.log10(x)+18.33*muhammadadrielfauzan.log10(x)-40.94"
+      ],
+      "execution_count": 7,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "1ul3ycj3qwRA"
+      },
+      "source": [
+        "def Ptl(fc,hT,hr,d,Cm):\r\n",
+        "  #mencari nilai c1 dari frekuensi\r\n",
+        "  C1=c1(fc)\r\n",
+        "  #mencari nilai c2 dari frekuensi\r\n",
+        "  C2=c2(fc)\r\n",
+        "  #mencari nilai a(hR)\r\n",
+        "  ahR=ahr(fc,hr)\r\n",
+        "\r\n",
+        "  #rumus cost 231 pathloss model\r\n",
+        "  Lp=C1+C2*muhammadadrielfauzan.log10(fc)-13.83*muhammadadrielfauzan.log10(hT)-ahR+(44.9-6.55*muhammadadrielfauzan.log10(hT))*muhammadadrielfauzan.log10(d)+Cm\r\n",
+        "  print(Lp)\r\n",
+        "  return Lp"
+      ],
+      "execution_count": 11,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "TQON0v4dq6qa",
+        "outputId": "c48a46c5-8b0f-4e65-f51a-bc8f40db7ee1"
+      },
+      "source": [
+        "fc=int(input(\"Frekuensi (150 s.d 2000): \"))    #Mhz 150 s.d 2000\r\n",
+        "hT=int(input(\"Tinggi Antena Pengirim (30 s.d 200): \"))     #meter 30 s.d 200\r\n",
+        "hr=int(input(\"Tinggi Antena Penerima (1 s.d 30): \"))     #meter 1 s.d 30 \r\n",
+        "d=int(input(\"Jarak : \"))      #Km\r\n",
+        "# 1=urban   2=suburban    3=open\r\n",
+        "area=int(input(\"Masukkan Area (1=Urban || 2=Suburban || 3=Open) : \"))    \r\n",
+        "\r\n",
+        "#mendapatkan nilai Cm berdasarkan area\r\n",
+        "if area==1:\r\n",
+        "  Cm=0\r\n",
+        "elif area==2:\r\n",
+        "  Cm=SbN(fc)\r\n",
+        "elif area==3:\r\n",
+        "  Cm=Op(fc)\r\n",
+        "else: print(\"Tidak Ada Pilihan\")\r\n",
+        "\r\n",
+        "#menghitung pathloss\r\n",
+        "Lp=Ptl(fc, hT, hr, d, Cm)\r\n",
+        "print(\"Nilai Pathloss dalam dB =\", Lp,\"dB\")"
+      ],
+      "execution_count": 12,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Frekuensi (150 s.d 2000): 500\n",
+            "Tinggi Antena Pengirim (30 s.d 200): 50\n",
+            "Tinggi Antena Penerima (1 s.d 30): 10\n",
+            "Jarak : 50\n",
+            "Masukkan Area (1=Urban || 2=Suburban || 3=Open) : 3\n",
+            "128.46970891831728\n",
+            "Nilai Pathloss dalam dB = 128.46970891831728 dB\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    }
+  ]
+}
